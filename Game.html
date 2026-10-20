@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini-Game</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .game-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #6a11cb;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #2575fc;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>Guess the Number</h1>
+    <p>I'm thinking of a number between 1 and 100. Can you guess it?</p>
+    <input type="number" id="guessInput" placeholder="Enter your guess">
+    <button id="submitGuess">Submit Guess</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    // Generate a random number between 1 and 100
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+    const resultDiv = document.getElementById('result');
+    const guessInput = document.getElementById('guessInput');
+    const submitGuess = document.getElementById('submitGuess');
+
+    submitGuess.addEventListener('click', () => {
+      const userGuess = parseInt(guessInput.value, 10);
+
+      if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+        resultDiv.textContent = 'Please enter a valid number between 1 and 100.';
+        resultDiv.style.color = 'red';
+      } else if (userGuess === randomNumber) {
+        resultDiv.textContent = '🎉 Congratulations! You guessed the correct number!';
+        resultDiv.style.color = 'green';
+      } else if (userGuess < randomNumber) {
+        resultDiv.textContent = 'Too low! Try again.';
+        resultDiv.style.color = 'orange';
+      } else {
+        resultDiv.textContent = 'Too high! Try again.';
+        resultDiv.style.color = 'orange';
+      }
+
+      guessInput.value = '';
+    });
+  </script>
+</body>
+</html>
